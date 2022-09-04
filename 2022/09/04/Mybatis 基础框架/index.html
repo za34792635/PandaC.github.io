@@ -1,0 +1,214 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Tommy's Blog | Tommy's Blog</title><meta name="author" content="Tommy Deng"><meta name="copyright" content="Tommy Deng"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Mybatis 基础框架学习目标：   Mybatis 是什么？ 为什么需要Mybatis? 作用是什么? 怎么用?(需要掌握什么核心API类,和掌握什么知识点)   是什么?Mybatis 提供了一套通用的、可重用的、高效的持久层代码模型。可以实现的功能有: 1)与数据库建立会话连接 2)执行器 负责生成 SQL 动态语句 3)语句处理器 负责 执行 DDL &#x2F;DML &#x2F;DQ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tommy&#39;s Blog">
+<meta property="og:url" content="http://example.com/2022/09/04/Mybatis%20%E5%9F%BA%E7%A1%80%E6%A1%86%E6%9E%B6/index.html">
+<meta property="og:site_name" content="Tommy&#39;s Blog">
+<meta property="og:description" content="Mybatis 基础框架学习目标：   Mybatis 是什么？ 为什么需要Mybatis? 作用是什么? 怎么用?(需要掌握什么核心API类,和掌握什么知识点)   是什么?Mybatis 提供了一套通用的、可重用的、高效的持久层代码模型。可以实现的功能有: 1)与数据库建立会话连接 2)执行器 负责生成 SQL 动态语句 3)语句处理器 负责 执行 DDL &#x2F;DML &#x2F;DQ">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+<meta property="article:published_time" content="2022-09-04T14:26:49.689Z">
+<meta property="article:modified_time" content="2022-09-04T14:26:26.000Z">
+<meta property="article:author" content="Tommy Deng">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2022/09/04/Mybatis%20%E5%9F%BA%E7%A1%80%E6%A1%86%E6%9E%B6/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Tommy\'s Blog',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-09-04 22:26:26'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Tommy's Blog</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">无题</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-09-04T14:26:49.689Z" title="发表于 2022-09-04 22:26:49">2022-09-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-09-04T14:26:26.000Z" title="更新于 2022-09-04 22:26:26">2022-09-04</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Mybatis-基础框架"><a href="#Mybatis-基础框架" class="headerlink" title="Mybatis 基础框架"></a>Mybatis 基础框架</h1><p><strong>学习目标：</strong></p>
+<blockquote>
+<ul>
+<li>Mybatis 是什么？</li>
+<li>为什么需要Mybatis? 作用是什么?</li>
+<li>怎么用?(需要掌握什么核心API类,和掌握什么知识点)</li>
+</ul>
+</blockquote>
+<h1 id="是什么"><a href="#是什么" class="headerlink" title="是什么?"></a>是什么?</h1><p><strong>Mybatis 提供了一套通用的、可重用的、高效的持久层代码模型。</strong>可以实现的功能有:</p>
+<p>1)与数据库建立会话连接</p>
+<p>2)执行器 负责生成 SQL 动态语句</p>
+<p>3)语句处理器 负责 执行 DDL &#x2F;DML &#x2F;DQL &#x2F;DCML 语句 的参数设置, 以及 将resultSet 结果集转换成List</p>
+<p>4)ParamterHandler 参数处理器负责 对SQL 语句进行设置</p>
+<p><strong>总体框架分为四大部分:</strong></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/22533079/1658477113824-bf979d3f-0626-4aea-9f41-ee243a51ed7d.png">​</p>
+<h2 id="org-apache-ibatis-类库的核心类接口"><a href="#org-apache-ibatis-类库的核心类接口" class="headerlink" title="org.apache.ibatis 类库的核心类接口"></a>org.apache.ibatis 类库的核心类接口</h2><ul>
+<li><strong>【org.apache.ibatis.session】SqlSession接口</strong> 作为MyBatis工作的主要顶层API，表示和数据库交互的会话，完成必要数据库增删改查功能</li>
+<li><strong>【org.apache.ibatis.excutor】Executor接口</strong> MyBatis执行器，是MyBatis 调度的核心，负责SQL语句的生成和查询缓存的维护</li>
+<li><strong>【org.apache.ibatis.excutor.statement】StatementHandler接口</strong> 封装了JDBC Statement操作，负责对JDBC statement 的操作，如设置参数、将Statement结果集转换成List集合。</li>
+<li><strong>【org.apache.ibatis.excutor.parameter】ParameterHandler接口</strong> 负责对用户传递的参数转换成JDBC Statement 所需要的参数，<strong>ResultSetHandler</strong>接口 负责将JDBC返回的ResultSet结果集对象转换成List类型的集合；</li>
+<li><strong>【org.apache.ibatis.type】TypeHandler接口</strong> 负责java数据类型和jdbc数据类型之间的映射和转换</li>
+<li><strong>【org.apache.ibatis.mapping】 MappedStatement类</strong>维护了一条&lt;select|update|delete|insert&gt; xml的封装，</li>
+<li><strong>【org.apache.ibatis.mapping】SqlSource接口</strong> 负责根据用户传递的parameterObject，动态地生成SQL语句，将信息封装到BoundSql对象中，并返回</li>
+<li><strong>【org.apache.ibatis.mapping】BoundSql类</strong> 表示动态生成的SQL语句以及相应的参数信息</li>
+<li><strong>【org.apache.ibatis.session】Configuration类</strong> MyBatis所有的配置信息都维持在Configuration对象之中。</li>
+</ul>
+<h2 id="引导层："><a href="#引导层：" class="headerlink" title="引导层："></a>引导层：</h2><p><strong>引导层是配置和启动MyBatis配置信息的方式。</strong></p>
+<p><strong>MyBatis 提供两种方式来启动MyBatis ：基于XML配置文件的方式和基于Java API 的方式</strong></p>
+<h2 id="数据处理层："><a href="#数据处理层：" class="headerlink" title="数据处理层："></a>数据处理层：</h2><p><strong>数据处理层可以说是MyBatis 的核心，从大的方面上讲，它要完成两个功能：</strong></p>
+<ul>
+<li><strong>通过传入参数构建动态SQL语句；</strong></li>
+<li><strong>SQL语句的执行以及封装查询结果集成</strong>List<E></li>
+</ul>
+<h4 id="¶-参数映射和动态SQL语句生成"><a href="#¶-参数映射和动态SQL语句生成" class="headerlink" title="¶ 参数映射和动态SQL语句生成"></a><a href="#%E5%8F%82%E6%95%B0%E6%98%A0%E5%B0%84%E5%92%8C%E5%8A%A8%E6%80%81sql%E8%AF%AD%E5%8F%A5%E7%94%9F%E6%88%90">¶</a> 参数映射和动态SQL语句生成</h4><p><strong>动态语句生成可以说是MyBatis框架非常优雅的一个设计，MyBatis 通过传入的参数值，使用 Ognl 来动态地构造SQL语句，使得MyBatis 有很强的灵活性和扩展性。</strong></p>
+<p><strong>参数映射指的是对于java 数据类型和jdbc数据类型之间的转换：这里有包括两个过程：查询阶段，我们要将java类型的数据，转换成jdbc类型的数据，通过 preparedStatement.setXXX() 来设值；另一个就是对resultset查询结果集的jdbcType 数据转换成java 数据类型。</strong></p>
+<h4 id="¶-SQL语句的执行以及封装查询结果集成List"><a href="#¶-SQL语句的执行以及封装查询结果集成List" class="headerlink" title="¶ SQL语句的执行以及封装查询结果集成List"></a><a href="#sql%E8%AF%AD%E5%8F%A5%E7%9A%84%E6%89%A7%E8%A1%8C%E4%BB%A5%E5%8F%8A%E5%B0%81%E8%A3%85%E6%9F%A5%E8%AF%A2%E7%BB%93%E6%9E%9C%E9%9B%86%E6%88%90list">¶</a> SQL语句的执行以及封装查询结果集成List</h4><p><strong>动态SQL语句生成之后，MyBatis 将执行SQL语句，并将可能返回的结果集转换成</strong>List<E>** 列表。MyBatis 在对结果集的处理中，支持结果集关系一对多和多对一的转换，并且有两种支持方式，一种为嵌套查询语句的查询，还有一种是嵌套结果集的查询。**</p>
+<h2 id="框架支撑层"><a href="#框架支撑层" class="headerlink" title="框架支撑层"></a>框架支撑层</h2><ul>
+<li><strong>事务管理机制</strong></li>
+</ul>
+<p><strong>事务管理机制对于ORM框架而言是不可缺少的一部分，事务管理机制的质量也是考量一个ORM框架是否优秀的一个标准。</strong></p>
+<ul>
+<li><strong>连接池管理机制</strong></li>
+</ul>
+<p><strong>由于创建一个数据库连接所占用的资源比较大， 对于数据吞吐量大和访问量非常大的应用而言，连接池的设计就显得非常重要。</strong></p>
+<ul>
+<li><strong>缓存机制</strong></li>
+</ul>
+<p><strong>为了提高数据利用率和减小服务器和数据库的压力，MyBatis 会对于一些查询提供会话级别的数据缓存，会将对某一次查询，放置到SqlSession 中，在允许的时间间隔内，对于完全相同的查询，MyBatis 会直接将缓存结果返回给用户，而不用再到数据库中查找。</strong></p>
+<ul>
+<li><strong>SQL语句的配置方式</strong></li>
+</ul>
+<p>传统的MyBatis 配置SQL 语句方式就是使用XML文件进行配置的，但是这种方式不能很好地支持面向接口编程的理念，为了支持面向接口的编程，MyBatis 引入了Mapper接口的概念，面向接口的引入，对使用注解来配置SQL 语句成为可能，用户<strong>只需要在接口上添加必要的注解即可，不用再去配置XML文件了</strong>。但是，目前的MyBatis 只是对注解配置SQL 语句提供了有限的支持，某些高级功能还是要依赖XML配置文件配置SQL 语句</p>
+<h2 id="接口层-与数据库交互的方式"><a href="#接口层-与数据库交互的方式" class="headerlink" title="接口层-与数据库交互的方式"></a>接口层-与数据库交互的方式</h2><p><strong>MyBatis和数据库的交互有两种方式：</strong></p>
+<ul>
+<li><strong>使用传统的MyBatis提供的API；</strong></li>
+<li><strong>使用Mapper接口；</strong></li>
+</ul>
+<h4 id="¶-使用传统的MyBatis提供的API"><a href="#¶-使用传统的MyBatis提供的API" class="headerlink" title="¶ 使用传统的MyBatis提供的API"></a><a href="#%E4%BD%BF%E7%94%A8%E4%BC%A0%E7%BB%9F%E7%9A%84mybatis%E6%8F%90%E4%BE%9B%E7%9A%84api">¶</a> 使用传统的MyBatis提供的API</h4><p><strong>这是传统的传递Statement Id 和查询参数给 SqlSession 对象，使用 SqlSession对象完成和数据库的交互；MyBatis 提供了非常方便和简单的API，供用户实现对数据库的增删改查数据操作，以及对数据库连接信息和MyBatis 自身配置信息的维护操作。</strong></p>
+<p>​</p>
+<h4 id="通过Mapper映射xml-获取并使用Mapper接口"><a href="#通过Mapper映射xml-获取并使用Mapper接口" class="headerlink" title="通过Mapper映射xml  获取并使用Mapper接口"></a>通过Mapper映射xml  获取并使用Mapper接口</h4><p><strong>MyBatis 将配置文件中的每一个<mapper> 节点</strong>抽象为一个 Mapper 接口，而这个接口中</p>
+<p><strong>声明的方法</strong> 跟<mapper> 节点中的**&lt;select|update|delete|insert&gt; 节点项**对应，</p>
+<ul>
+<li><strong>&lt;select|update|delete|insert&gt; id</strong>属性值 &#x3D; Mapper 接口中的 <strong>方法名</strong> <strong>。</strong></li>
+<li><strong>parameterType</strong> <strong>属性值  &#x3D; Mapper 对应方法的入参类型</strong></li>
+<li><strong>resultMap</strong> 属性值&#x3D; Mapper 接口<strong>方法的返回值类型</strong>或者 <strong>返回结果集的元素类型</strong> <strong>。</strong></li>
+</ul>
+<p><strong>【底层原理】</strong></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/22533079/1658477739880-7efe283b-b331-4f10-a842-7687284e0c32.png">​</p>
+<p><strong>SqlSessionFactoryBuilder  -&gt;创建 SqlSessionFactory -&gt;  创建会话SqlSession对象</strong></p>
+<p><strong>根据MyBatis 的配置规范配置好后，通过SqlSession.getMapper(XXXMapper.class)方法，MyBatis 会根据相应的接口声明的方法信息，通过</strong> <strong>动态代理机制生成一个Mapper 实例</strong> <strong>，我们使用Mapper 接口的某一个方法时，MyBatis 会根据这个方法的方法名和参数类型，确定Statement Id，底层还是通过SqlSession.select(“statementId”,parameterObject);或者SqlSession.update(“statementId”,parameterObject); 等等来实现对数据库的操作， MyBatis 引用Mapper 接口这种调用方式，纯粹是为了满足面向接口编程的需要。（其实还有一个原因是在于，面向接口的编程，使得用户在接口上可以使用注解来配置SQL语句，这样就可以脱离XML配置文件，实现“0配置”）</strong></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Tommy Deng</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2022/09/04/Mybatis%20%E5%9F%BA%E7%A1%80%E6%A1%86%E6%9E%B6/">http://example.com/2022/09/04/Mybatis%20%E5%9F%BA%E7%A1%80%E6%A1%86%E6%9E%B6/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Tommy's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/09/04/ORM%20%E6%80%9D%E6%83%B3%E4%B8%8EJava%20JPA/"><img class="prev-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info"></div></div></a></div><div class="next-post pull-right"><a href="/2022/09/04/Mybatis%20%E5%88%9D%E5%A7%8B%E5%8C%96SqlSession%E5%AF%B9%E8%B1%A1%E5%92%8C%E8%A7%A3%E6%9E%90%20%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/"><img class="next-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info"></div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Tommy Deng</div><div class="author-info__description">用来记录和学习使用</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Mybatis-%E5%9F%BA%E7%A1%80%E6%A1%86%E6%9E%B6"><span class="toc-number">1.</span> <span class="toc-text">Mybatis 基础框架</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">2.</span> <span class="toc-text">是什么?</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#org-apache-ibatis-%E7%B1%BB%E5%BA%93%E7%9A%84%E6%A0%B8%E5%BF%83%E7%B1%BB%E6%8E%A5%E5%8F%A3"><span class="toc-number">2.1.</span> <span class="toc-text">org.apache.ibatis 类库的核心类接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E5%AF%BC%E5%B1%82%EF%BC%9A"><span class="toc-number">2.2.</span> <span class="toc-text">引导层：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%B1%82%EF%BC%9A"><span class="toc-number">2.3.</span> <span class="toc-text">数据处理层：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%C2%B6-%E5%8F%82%E6%95%B0%E6%98%A0%E5%B0%84%E5%92%8C%E5%8A%A8%E6%80%81SQL%E8%AF%AD%E5%8F%A5%E7%94%9F%E6%88%90"><span class="toc-number">2.3.0.1.</span> <span class="toc-text"> 参数映射和动态SQL语句生成</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%C2%B6-SQL%E8%AF%AD%E5%8F%A5%E7%9A%84%E6%89%A7%E8%A1%8C%E4%BB%A5%E5%8F%8A%E5%B0%81%E8%A3%85%E6%9F%A5%E8%AF%A2%E7%BB%93%E6%9E%9C%E9%9B%86%E6%88%90List"><span class="toc-number">2.3.0.2.</span> <span class="toc-text"> SQL语句的执行以及封装查询结果集成List</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%86%E6%9E%B6%E6%94%AF%E6%92%91%E5%B1%82"><span class="toc-number">2.4.</span> <span class="toc-text">框架支撑层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%E5%B1%82-%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%A4%E4%BA%92%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="toc-number">2.5.</span> <span class="toc-text">接口层-与数据库交互的方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%C2%B6-%E4%BD%BF%E7%94%A8%E4%BC%A0%E7%BB%9F%E7%9A%84MyBatis%E6%8F%90%E4%BE%9B%E7%9A%84API"><span class="toc-number">2.5.0.1.</span> <span class="toc-text"> 使用传统的MyBatis提供的API</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%9A%E8%BF%87Mapper%E6%98%A0%E5%B0%84xml-%E8%8E%B7%E5%8F%96%E5%B9%B6%E4%BD%BF%E7%94%A8Mapper%E6%8E%A5%E5%8F%A3"><span class="toc-number">2.5.0.2.</span> <span class="toc-text">通过Mapper映射xml  获取并使用Mapper接口</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/09/04/Hibernate%E6%A1%86%E6%9E%B6/" title="无题"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2022/09/04/Hibernate%E6%A1%86%E6%9E%B6/" title="无题">无题</a><time datetime="2022-09-04T14:26:49.988Z" title="发表于 2022-09-04 22:26:49">2022-09-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/09/04/%E4%BD%BF%E7%94%A8Mybatis%20%E5%AE%8C%E6%88%90CURD/" title="无题"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2022/09/04/%E4%BD%BF%E7%94%A8Mybatis%20%E5%AE%8C%E6%88%90CURD/" title="无题">无题</a><time datetime="2022-09-04T14:26:49.887Z" title="发表于 2022-09-04 22:26:49">2022-09-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/09/04/ORM%20%E6%80%9D%E6%83%B3%E4%B8%8EJava%20JPA/" title="无题"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2022/09/04/ORM%20%E6%80%9D%E6%83%B3%E4%B8%8EJava%20JPA/" title="无题">无题</a><time datetime="2022-09-04T14:26:49.786Z" title="发表于 2022-09-04 22:26:49">2022-09-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/09/04/Mybatis%20%E5%9F%BA%E7%A1%80%E6%A1%86%E6%9E%B6/" title="无题"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2022/09/04/Mybatis%20%E5%9F%BA%E7%A1%80%E6%A1%86%E6%9E%B6/" title="无题">无题</a><time datetime="2022-09-04T14:26:49.689Z" title="发表于 2022-09-04 22:26:49">2022-09-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/09/04/Mybatis%20%E5%88%9D%E5%A7%8B%E5%8C%96SqlSession%E5%AF%B9%E8%B1%A1%E5%92%8C%E8%A7%A3%E6%9E%90%20%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" title="无题"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2022/09/04/Mybatis%20%E5%88%9D%E5%A7%8B%E5%8C%96SqlSession%E5%AF%B9%E8%B1%A1%E5%92%8C%E8%A7%A3%E6%9E%90%20%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" title="无题">无题</a><time datetime="2022-09-04T14:26:49.591Z" title="发表于 2022-09-04 22:26:49">2022-09-04</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Tommy Deng</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
